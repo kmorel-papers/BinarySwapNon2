@@ -5,4 +5,5 @@ project(BinarySwapNon2 NONE)
 include(UseLATEX.cmake)
 
 add_latex_document(BinarySwapNon2.tex
+  BIBFILES BinarySwapNon2.bib
   )

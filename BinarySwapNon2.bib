@@ -1,0 +1,91 @@
+% Encoding: UTF-8
+
+@Article{Molnar1994,
+  author  = {Steven Molnar and Michael Cox and David Ellsworth and Henry Fuchs},
+  title   = {A Sorting Classification of Parallel Rendering},
+  journal = {IEEE Computer Graphics and Applications},
+  year    = {1994},
+  volume  = {14},
+  number  = {4},
+  pages   = {23--32},
+  month   = {July},
+  review  = {The seminal paper on the sorting classification for parallel rendering (sort-first, sort-middle, sort-last).},
+}
+
+@Article{Wylie2001,
+  author  = {Brian Wylie and Constantine Pavlakos and Vasily Lewis and Kenneth Moreland},
+  title   = {Scalable Rendering on {PC} Clusters},
+  journal = {IEEE Computer Graphics and Applications},
+  year    = {2001},
+  volume  = {21},
+  number  = {4},
+  pages   = {62--70},
+  month   = {July/August},
+  review  = {Early article demonstrating the good scaling performance of sort-last parallel rendering.  (Does not really compare to other parallel rendering methods, although those are known to scale poorly.  You can use [Mueller1995] to argue poor scaling of sort-first.)},
+}
+
+@Article{Childs2010,
+  author   = {Hank Childs and David Pugmire and Sean Ahern and Brad Whitlock and Mark Howison and Prabhat and Gunther H. Weber and E. Wes Bethel},
+  title    = {Extreme Scaling of Production Visualization Software on Diverse Architectures},
+  journal  = {IEEE Computer Graphics and Applications},
+  year     = {2010},
+  volume   = {30},
+  number   = {3},
+  pages    = {22--31},
+  month    = {May/June},
+  abstract = {This article presents the results of experiments studying how the pure-parallelism paradigm scales to massive data sets, including 16,000 or more cores on trillion-cell meshes, the largest data sets published to date in the visualization literature. The findings on scaling characteristics and bottlenecks contribute to understanding how pure parallelism will perform in the future.},
+  doi      = {10.1109/MCG.2010.51},
+  review   = {Explores the scaling of visualization pipelines (VisIt specifically) on full petascale machines.},
+  url      = {http://dx.doi.org/10.1109/MCG.2010.51},
+}
+
+@InProceedings{Moreland2011:SC,
+  author    = {Kenneth Moreland and Wesley Kendall and Tom Peterka and Jian Huang},
+  title     = {An Image Compositing Solution at Scale},
+  booktitle = {Proceedings of 2011 International Conference for High Performance Computing, Networking, Storage and Analysis (SC '11)},
+  year      = {2011},
+  month     = {November},
+  doi       = {10.1145/2063384.2063417},
+  review    = {A compendium of optimizations for sort-last image-compositing parallel rendering including  Radix-k compositing order, image compression, image interlacing, non-powers-of-two binary swap (telescoping), and improved image collection.  All the techniques are collected in the IceT parallel rendering library and scalability is shown on a petascale machine.},
+  url       = {http://dx.doi.org/10.1145/2063384.2063417},
+}
+
+@InProceedings{Peterka2009:ICPP,
+  author    = {Tom Peterka and Hongfeng Yu and Robert Ross and Kwan-Liu Ma and Rob Latham},
+  title     = {End-to-End Study of Parallel Volume Rendering on the {IBM Blue Gene/P}},
+  booktitle = {Proceedings of ICPP '09},
+  year      = {2009},
+  pages     = {566--573},
+  month     = {September},
+  doi       = {10.1109/ICPP.2009.27},
+  review    = {Measures very large scale parallel volume rendering.  Shows evidence of I/O dominating visualization/rendering.},
+  url       = {http://dx.doi.org/10.1109/ICPP.2009.27},
+}
+
+@InBook{Peterka2013,
+  chapter   = {Parallel Image Compositing Methods},
+  pages     = {71--89},
+  title     = {High Performance Visualization: Enabling Extreme Scale Insight},
+  publisher = {CRC Press},
+  year      = {2013},
+  author    = {Tom Peterka and Kwan-Liu Ma},
+  editor    = {E. Wes Bethel and Hank Childs and Charles Hansen},
+  isbn      = {978-1-4398-7572-8},
+  review    = {A basic overview of sort-last parallel image compositing methods. Includes discussion of direct-send, tree, binary-swap, 2-3 swap, and radix-k.},
+}
+
+@Article{BinarySwap2,
+  author  = {Kwan-Liu Ma and James S. Painter and Charles D. Hansen and Michael F. Krogh},
+  title   = {Parallel Volume Rendering Using Binary-Swap Compositing},
+  journal = {IEEE Computer Graphics and Applications},
+  year    = {1994},
+  volume  = {14},
+  number  = {4},
+  pages   = {59--68},
+  month   = {July/August},
+  doi     = {10.1109/38.291532},
+  review  = {One of the original binary-swap papers.},
+  url     = {http://dx.doi.org/10.1109/38.291532},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}
