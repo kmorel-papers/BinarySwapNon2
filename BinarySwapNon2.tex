@@ -113,6 +113,7 @@
 
 \newcommand{\binaryswap}{\textalgorithm{binary swap}}
 \newcommand{\Binaryswap}{\textalgorithm{Binary swap}}
+
 \newcommand{\ttswap}{\textalgorithm{2-3 swap}}
 \newcommand{\naive}{\textalgorithm{naive}}
 \newcommand{\Naive}{\textalgorithm{Naive}}
@@ -120,6 +121,12 @@
 \newcommand{\Telescoping}{\textalgorithm{Telescoping}}
 \newcommand{\remainder}{\textalgorithm{remainder}}
 \newcommand{\Remainder}{\textalgorithm{Remainder}}
+
+\newcommand{\radixk}{\textalgorithm{radix-k}}
+\newcommand{\Radixk}{\textalgorithm{Radix-k}}
+
+\newcommand{directsend}{\textalgorithm{direct send}}
+\newcommand{Directsend}{\textalgorithm{Direct send}}
 
 %% Paper title.
 
@@ -316,6 +323,10 @@ A third observation is that both the \telescoping and \remainder versions of bin
 This is somewhat counterintuitive for the \remainder algorithm, which, much like the poor performing \naive algorithm, lets processes go idle.
 However, unlike the \naive algorithm, \remainder delays letting processes go idle until as late as possible.
 More importantly, \remainder has fewer iterations than \naive with each iteration dividing the amount of work done by each process in half.
+
+A fourth observation is that all of the \binaryswap algorithms implemented in miniGraphics perform less well than the IceT software.
+IceT uses a combination of \radixk and \telescoping, but the real performance gain is in its high-speed blending and management of memory to reduce allocation and messages.
+In contrast, miniGraphics sacrifices some efficiency for readability of code and ease of implementation to facilitate comparisons like those in this paper.
 
 \subsection{No Image Compression}
 \label{sec:FullImages}
