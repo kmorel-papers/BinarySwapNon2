@@ -73,7 +73,7 @@ FUNCTION {add.link} % title
 	    {
 			  doi #1 #7 substring$ "http://" =
 				  { "\href{" doi * "}{" * t * "}" * }
-				  { "\href{https://doi.org/" doi * "}{" * t * "}" * }
+				  { "\href{http://dx.doi.org/" doi * "}{" * t * "}" * }
 				if$
 		  }
       if$ }
@@ -99,7 +99,7 @@ FUNCTION {output.nonnull}
     }
   if$
   s
-  add.link
+  %add.link
 }
 
 FUNCTION {output}
@@ -156,7 +156,7 @@ FUNCTION {add.doi}
           {
 					  #3 'nth.dash :=
 					  #1 'doi.string.pos :=
-						"https://doi.org/" 'doi.urlstr :=
+						"https://dx.doi.org/" 'doi.urlstr :=
 					}
           {}
         if$
@@ -172,7 +172,7 @@ FUNCTION {add.doi}
 					  {}
 					  {
 							#1 'doi.string.pos :=
-							"https://doi.org/" 'doi.urlstr :=
+							"https://dx.doi.org/" 'doi.urlstr :=
 						}
 					if$
 				}
@@ -182,12 +182,12 @@ FUNCTION {add.doi}
       doilen doi.string.pos - #1 + 'doilen :=
       d doi.string.pos doilen substring$ 'd :=
 
-      " \href{" doi.urlstr * doi * "}" * write$
-      newline$
+      %" \href{" doi.urlstr * doi * "}" * write$
+      %newline$
 			% uses \usepackage{microtype} for \textls and \usepackage{PTSansNarrow} for \textsf
 			% notice the additional \hspace calls in the replacement of "."
-      "{doi: \textsf{" pc.str * write$
-      %"{doi: \textls[-45]{\textsf{" pc.str * write$
+      " doi: \textsf{" pc.str * write$
+      %" doi: \textls[-45]{\textsf{" pc.str * write$
       %"{doi\raisebox{0.5pt}{\textgreater} \textls[0]{\textsf{" pc.str * write$
       newline$
 
@@ -271,7 +271,7 @@ FUNCTION {add.doi}
       }
       while$
       d doi.string.pos #1 substring$ 'dc :=
-      dc "}}" * write$
+      dc "}" * write$
       newline$
     }
   if$
