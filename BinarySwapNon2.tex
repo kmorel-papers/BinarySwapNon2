@@ -125,8 +125,8 @@
 \newcommand{\radixk}{\textalgorithm{radix-k}}
 \newcommand{\Radixk}{\textalgorithm{Radix-k}}
 
-\newcommand{directsend}{\textalgorithm{direct send}}
-\newcommand{Directsend}{\textalgorithm{Direct send}}
+\newcommand{\directsend}{\textalgorithm{direct send}}
+\newcommand{\Directsend}{\textalgorithm{Direct send}}
 
 %% Paper title.
 
@@ -281,11 +281,14 @@ The tests include runs on 64 processes (4 real nodes) up to 8192 cores (512 real
 It is impractical to run an experiment on every possible number of processes.
 Instead jobs are chosen such that the number of real nodes where all the prime factors are either 2 or 3.
 This hits all jobs sizes that are a perfect power of 2 and many in between at odd spacing.
-The results of these experiments are shown in Figures \ref{fig:ScalingHDTV} and \ref{fig:Scaling8K}
+The results of these experiments are shown in Figures \ref{fig:ScalingHDTV} and \ref{fig:Scaling8K}.
+(The plots are labeled as ``Partial Composite Time'' because these times include only splitting the images and blending pixels.
+The fully composited image is left in pieces scattered across the MPI processes.
+Section \ref{sec:Gather} discusses the collection of these pieces.)
 
 \begin{figure}
   \centering
-  \fix{Plot of compositing performance for \naive, \remainder, \telescoping, and \ttswap variations of binary swap (as well as probably IceT for reference) for HDTV images.}
+  \includegraphics[width=\linewidth]{scaling-hdtv}
   \caption{
     Performance of variations of \binaryswap for HDTV ($1920 \times 1080$) images.
     The performance of the IceT rendering library is also given for reference.
@@ -295,7 +298,7 @@ The results of these experiments are shown in Figures \ref{fig:ScalingHDTV} and 
 
 \begin{figure}
   \centering
-  \fix{Plot of compositing performance for naive, remainder, telescoping, and 2-3 swap variations of binary swap (as well as probably IceT for reference) for 8K UHD images.}
+  \includegraphics[width=\linewidth]{scaling-8k}
   \caption{
     Performance of variations of \binaryswap for 8K UHD ($7680 \times 4320$) images.
     The performance of the IceT rendering library is also given for reference.
@@ -307,7 +310,8 @@ A first observation about the data is to note that the naive algorithm pays a si
 This is consistent with the findings of Yu et al.\scite{23Swap}.
 
 A second observation is that the \ttswap algorithm behaves well up to 1024 processes (which is as large as was measured by Ye et al.\scite{23Swap}), but the performance starts to deteriorate on larger sizes, particularly for the HDTV images.
-This appears to be caused by the time taken to build the compositing tree, which is complex for \ttswap and has to take into account all the processes as shown in Figure \ref{fig:23SwapOverhead}.
+This appears to be caused by the time taken to build the compositing tree, which is complex for \ttswap and has to take into account all the processes.
+Figure \ref{fig:23SwapOverhead} demonstrates the fraction of time spent in building the 2-3 compositing tree.
 
 \begin{figure}[htb]
   \centering
