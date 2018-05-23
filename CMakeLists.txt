@@ -7,6 +7,7 @@ include(UseLATEX.cmake)
 set(images
   images/scaling-hdtv.pdf
   images/scaling-8k.pdf
+  images/2-3-swap-overhead.pdf
   )
 
 add_latex_document(BinarySwapNon2.tex
