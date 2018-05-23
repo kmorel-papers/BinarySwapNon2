@@ -8,6 +8,8 @@ set(images
   images/scaling-hdtv.pdf
   images/scaling-8k.pdf
   images/2-3-swap-overhead.pdf
+  images/no-compress-hdtv.pdf
+  images/no-compress-8k.pdf
   )
 
 add_latex_document(BinarySwapNon2.tex

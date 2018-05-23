@@ -335,6 +335,48 @@ In contrast, miniGraphics sacrifices some efficiency for readability of code and
 \subsection{No Image Compression}
 \label{sec:FullImages}
 
+The compositing reported in Section \ref{sec:Scaling} compresses images during compositing using run lengths of active and inactive pixels (sometimes called \keyterm{active pixel encoding}).
+Any practical system should employ active pixel encoding or something like it as previous work has shown dramatic improvements in compositing time\lcite{Ahrens1998,Moreland2001}.
+However, active pixel encoding can change the performance behavior of the compositing.
+The overall time will increase and decrease depending on the effectiveness of the compression.
+Image compression can also add load imbalance.
+
+To verify that active pixel encoding is not artificially skewing the previous results, a second set of runs replicates the experiments with image compression turned off.
+This set of experiments only includes the \naive, \ttswap, and \remainder algorithms.
+\Telescoping was not run to save time because its performance is similar to \remainder.
+IceT was not run because it always compresses the data.
+The results are shown in Figures \ref{fig:NoCompressHDTV} and \ref{fig:NoCompress8K}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{no-compress-hdtv}
+  \caption{
+    Performance of compositing algorithms without compression for HDTV ($1920 \times 1080$) images.
+  }
+  \label{fig:NoCompressHDTV}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{no-compress-8k}
+  \caption{
+    Performance of compositing algorithms without compression for 8K UHD ($7680 \times 4320$) images.
+  }
+  \label{fig:NoCompress8K}
+\end{figure}
+
+A first observation is that the behavior of the three algorithms is roughly consistent, proportionally speaking, with the behavior using active pixel encoding.
+The \naive algorithm pays a large penalty when not using a perfect power of 2 number of processes.
+The \ttswap algorithm is insensitive to the factors of the number of processes, but its performance worsens at larger scales.
+The \remainder algorithm's performance is consistent and is one of the best performers in all cases.
+
+A second observation is that without compression, the compositing takes about 3.5 to 4.5 times as long, which verifies the statements about the utility of active pixel encoding during compositing.
+
+A third observation is that the variance of the run time, both from trial to trial and the average from job to job, is much larger than that when using active pixel encoding.
+This is surprising because removing compression makes the work more consistent and should lead to less variance, not more.
+Presumably the time for data communication is not consistent.
+Perhaps the extra data on the interconnect are causing contention.
+
 \subsection{Virtual Node vs. Pure Distributed}
 \label{sec:VNCompare}
 
