@@ -228,6 +228,8 @@ Multiple variations of \binaryswap have been independently introduced to overcom
 This paper reviews these existing approaches and introduces a new one.
 It then describes a miniature rendering application built to easily implement these algorithms and provides the results of comparing these algorithms with each other.
 
+\fix{Better describe contributions.}
+
 \section{Compositing Algorithms}
 
 \subsection{Base Binary Swap}
@@ -401,7 +403,7 @@ A similar run for 8K UHD images was also run and gave similar results, but it is
 An interesting observation is that the pure distributed mode runs consistently faster than the virtual node mode.
 This is counterintuitive as many of the connections in virtual node mode are faster than those in pure distributed mode.
 Most likely the slowdown is due to the cores in virtual node mode sharing the same network interface controller (NIC) and having to divide the bandwidth accordingly.
-This measurement suggests that overall rendering throughput will be maximized by leveraging shared-memory local rendering, of which there are many choices \fix{cite: OspRAY, OpenSWR, Larsen, VTK-m?}, to reduce the number of MPI processes on each physical node.
+This measurement suggests that overall rendering throughput will be maximized by leveraging shared-memory local rendering, of which there are many choices\lcite{OpenSWR,Wald2014,Knoll2014,Larsen2015:RayTrace,Moreland2016:VTKm}, to reduce the number of MPI processes on each physical node.
 
 Apart from the consistent overhead of running in virtual node mode, we can see that the characteristics of the behavior are similar for both modes.
 Thus, we can conclude that the findings drawn from our virtual node scaling can be applied to other job launching patterns.

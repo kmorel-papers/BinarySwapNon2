@@ -128,4 +128,71 @@
   comment   = {Initial publication of the tiled display sort-last image compositing algorithms that form the basis for IceT.},
 }
 
+@Misc{OpenSWR,
+  author       = {Bruce Cherniak},
+  title        = {{OpenSWR}: A Scalable High-Performance Software Rasterizer for Scivis},
+  howpublished = {Presentation, {\it Intel HPC Developer Conference}},
+  month        = nov,
+  year         = {1015},
+  comment      = {Introduces the OpenSWR parallel rasterizer for rendering.
+
+This is not a great source. It is not a real publication, it is just a presentation. In fact, it is a presentation made by an Intel employee at an event organized by Intel, so don't expect any external peer review here. However, the OpenSWR team does not seem to be interested in publishing, and this is the best that I could find.},
+  url          = {http://openswr.org/talks/SC15DevConf-OpenSWR.pdf},
+}
+
+@InProceedings{Larsen2015:RayTrace,
+  author    = {Matthew Larsen and Jeremy S. Meredith and Paul A. Navratil and Hank Childs},
+  title     = {Ray Tracing Within a Data Parallel Framework},
+  booktitle = {IEEE Pacific Visualization Symposium (PacificVis)},
+  year      = {2015},
+  pages     = {279--286},
+  month     = {April},
+  abstract  = {Current architectural trends on supercomputers have dramatic increases in the number of cores and available computational power per die, but this power is increasingly difficult for programmers to harness effectively. High-level language constructs can simplify programming many-core devices, but this ease comes with a potential loss of processing power, particularly for cross-platform constructs. Recently, scientific visualization packages have embraced language constructs centering around data parallelism, with familiar operators such as map, reduce, gather, and scatter. Complete adoption of data parallelism will require that central visualization algorithms be revisited, and expressed in this new paradigm while preserving both functionality and performance. This investment has a large potential payoff: portable performance in software bases that can span over the many architectures that scientific visualization applications run on. With this work, we present a method for ray tracing consisting of entirely of data parallel primitives. Given the extreme computational power on nodes now prevalent on supercomputers, we believe that ray tracing can supplant rasterization as the work-horse graphics solution for scientific visualization. Our ray tracing method is relatively efficient, and we describe its performance with a series of tests, and also compare to leading-edge ray tracers that are optimized for specific platforms. We find that our data parallel approach leads to results that are acceptable for many scientific visualization use cases, with the key benefit of providing a single code base that can run on many architectures.},
+  comment   = {An experiment where a ray tracer was written using a system of data-parallel primitives (specifically in EAVL although later work moved to VTK-m). The EAVL ray tracer was compared with NVIDIA's in-house solution designed specifically for CUDA (OptiX) and the Intel in-house solution for Xeon (Embree). The portable data-parallel primitive implementation got within a factor of two of each.},
+  doi       = {10.1109/PACIFICVIS.2015.7156388},
+  url       = {http://dx.doi.org/10.1109/PACIFICVIS.2015.7156388},
+}
+
+@Article{Moreland2016:VTKm,
+  author   = {Kenneth Moreland and Christopher Sewell and William Usher and Li-Ta Lo and Jeremy Meredith and David Pugmire and James Kress and Hendrik Schroots and Kwan-Liu Ma and Hank Childs and Matthew Larsen and Chun-Ming Chen and Robert Maynard and Berk Geveci},
+  title    = {{VTK-m}: Accelerating the Visualization Toolkit for Massively Threaded Architectures},
+  journal  = {IEEE Computer Graphics and Applications},
+  year     = {2016},
+  volume   = {36},
+  number   = {3},
+  pages    = {48--58},
+  month    = {May/June},
+  abstract = {One of the most critical challenges for high-performance computing (HPC) scientific visualization is execution on massively threaded processors. Of the many fundamental changes we are seeing in HPC systems, one of the most profound is a reliance on new processor types optimized for execution bandwidth over latency hiding. Our current production scientific visualization software is not designed for these new types of architectures. To address this issue, the VTK-m framework serves as a container for algorithms, provides flexible data representation, and simplifies the design of visualization algorithms on new and future computer architecture.},
+  comment  = {The first comprehensive publication for VTK-m.},
+  doi      = {10.1109/MCG.2016.48},
+  url      = {http://dx.doi.org/10.1109/MCG.2016.48},
+}
+
+@Article{Wald2014,
+  author   = {Ingo Wald and Sven Woop and Carsten Benthin and Gregory S. Johnson and Manfred Ernst},
+  title    = {Embree: A Kernel Framework for Efficient {CPU} Ray Tracing},
+  journal  = {ACM Transactions on Graphics (TOG)},
+  year     = {2014},
+  volume   = {33},
+  number   = {4},
+  month    = jul,
+  abstract = {We describe Embree, an open source ray tracing framework for x86 CPUs. Embree is explicitly designed to achieve high performance in professional rendering environments in which complex geometry and incoherent ray distributions are common. Embree consists of a set of low-level kernels that maximize utilization of modern CPU architectures, and an API which enables these kernels to be used in existing renderers with minimal programmer effort. In this paper, we describe the design goals and software architecture of Embree, and show that for secondary rays in particular, the performance of Embree is competitive with (and often higher than) existing state-of-the-art methods on CPUs and GPUs.},
+  comment  = {The paper to use to reference Intel's Embree ray casting software. Probably also the best reference for OSPRay (or at least the performance of it). Although OSPRay is never mentioned in the paper, Embree is the underlying ray casting engine for OSPRay.},
+  doi      = {10.1145/2601097.2601199},
+}
+
+@Article{Knoll2014,
+  author   = {Aaron Knoll and Ingo Wald and Paul Navratil and Anne Bowen and Khairi Reda and Michael E. Papka and Kelly Gaither},
+  title    = {{RBF} Volume Ray Casting on Multicore and Manycore {CPUs}},
+  journal  = {Computer Graphics Forum (Proceedings of EuroVis)},
+  year     = {2014},
+  volume   = {33},
+  number   = {3},
+  pages    = {71--80},
+  month    = jun,
+  abstract = {Modern supercomputers enable increasingly large N‐body simulations using unstructured point data. The structures implied by these points can be reconstructed implicitly. Direct volume rendering of radial basis function (RBF) kernels in domain‐space offers flexible classification and robust feature reconstruction, but achieving performant RBF volume rendering remains a challenge for existing methods on both CPUs and accelerators. In this paper, we present a fast CPU method for direct volume rendering of particle data with RBF kernels. We propose a novel two‐pass algorithm: first sampling the RBF field using coherent bounding hierarchy traversal, then subsequently integrating samples along ray segments. Our approach performs interactively for a range of data sets from molecular dynamics and astrophysics up to 82 million particles. It does not rely on level of detail or subsampling, and offers better reconstruction quality than structured volume rendering of the same data, exhibiting comparable performance and requiring no additional preprocessing or memory footprint other than the BVH. Lastly, our technique enables multi‐field, multi‐material classification of particle data, providing better insight and analysis. },
+  comment  = {Documents the high performance volume rendering work lead by Aaron Knoll.},
+  doi      = {https://doi.org/10.1111/cgf.12363},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}
