@@ -365,6 +365,15 @@ The results are shown in Figures \ref{fig:NoCompressHDTV} and \ref{fig:NoCompres
   \label{fig:NoCompress8K}
 \end{figure}
 
+\begin{figure*}
+  \centering
+  \includegraphics[width=\linewidth]{vn-vs-smp-hdtv}
+  \caption{
+    A comparison of the performance of compositing when run on the same number of cores in virtual node mode and pure distributed mode when using the \naive, \ttswap, and \remainder algorithms (in the left, center, and right plots, respectively).
+  }
+  \label{fig:VNvsSMPHDTV}
+\end{figure*}
+
 A first observation is that the behavior of the three algorithms is roughly consistent, proportionally speaking, with the behavior using active pixel encoding.
 The \naive algorithm pays a large penalty when not using a perfect power of 2 number of processes.
 The \ttswap algorithm is insensitive to the factors of the number of processes, but its performance worsens at larger scales.
@@ -379,6 +388,23 @@ Perhaps the extra data on the interconnect are causing contention.
 
 \subsection{Virtual Node vs. Pure Distributed}
 \label{sec:VNCompare}
+
+To maximize the scaling in the aforementioned experiments, runs were performed in a \keyterm{virtual node} mode where each core on a node has its own MPI process.
+In essence, each core is treated as a separate node even though they technically share resources.
+Once consequence of the virtual node setup is that the network behavior is expected to be more heterogeneous.
+Data transfers between two virtual nodes on the same physical node are expected to be much faster than transfers between virtual nodes on two different physical nodes.
+To ensure that the conclusions we draw are not invalid for different network configurations, the experiments are also run in a \keyterm{pure virtual} mode where only a single MPI process is run on each node (and consequently only one core is used).
+
+Figure \ref{fig:VNvsSMPHDTV} shows the comparison between running on virtual node and pure virtual for generating HDTV images.
+A similar run for 8K UHD images was also run and gave similar results, but it is not displayed here for lack of space.
+
+An interesting observation is that the pure distributed mode runs consistently faster than the virtual node mode.
+This is counterintuitive as many of the connections in virtual node mode are faster than those in pure distributed mode.
+Most likely the slowdown is due to the cores in virtual node mode sharing the same network interface controller (NIC) and having to divide the bandwidth accordingly.
+This measurement suggests that overall rendering throughput will be maximized by leveraging shared-memory local rendering, of which there are many choices \fix{cite: OspRAY, OpenSWR, Larsen, VTK-m?}, to reduce the number of MPI processes on each physical node.
+
+Apart from the consistent overhead of running in virtual node mode, we can see that the characteristics of the behavior are similar for both modes.
+Thus, we can conclude that the findings drawn from our virtual node scaling can be applied to other job launching patterns.
 
 \subsection{Aberrant Readings}
 

@@ -10,6 +10,8 @@ set(images
   images/2-3-swap-overhead.pdf
   images/no-compress-hdtv.pdf
   images/no-compress-8k.pdf
+  images/vn-vs-smp-hdtv.pdf
+  images/vn-vs-smp-8k.pdf
   )
 
 add_latex_document(BinarySwapNon2.tex
