@@ -69,8 +69,8 @@
   publisher = {CRC Press},
   year      = {2013},
   author    = {Tom Peterka and Kwan-Liu Ma},
-  editor    = {E. Wes Bethel and Hank Childs and Charles Hansen},
   isbn      = {978-1-4398-7572-8},
+  /*editor  = {E. Wes Bethel and Hank Childs and Charles Hansen},
   comment   = {A basic overview of sort-last parallel image compositing methods. Includes discussion of direct-send, tree, binary-swap, 2-3 swap, and radix-k.},
 }
 
@@ -190,6 +190,29 @@ This is not a great source. It is not a real publication, it is just a presentat
   comment   = {One of the original binary-swap papers.},
   doi       = {10.1145/166181.166183},
   url       = {http://dx.doi.org/10.1145/166181.166183},
+}
+
+@InProceedings{Nonaka2015,
+  author    = {Jorji Nonaka and Kenji Ono and Masahiro Fujita},
+  title     = {234 Scheduling of 3-2 and 2-1 Eliminations for Parallel Image Compositing Using Non-Power-of-Two Number of Processes},
+  booktitle = {International Conference on High Performance Computing \& Simulation (HPCS)},
+  year      = {2015},
+  month     = jul,
+  abstract  = {Binary-Swap is a parallel image compositing algorithm based on recursive vector halving and distance doubling, and works efficiently when the number of processes is exactly a power-of-two (2n). Several power-of-two converting approaches for Binary-Swap have been proposed. Among them, the Telescope method, based on the Binary Blocks algorithm, has been shown as the most promising approach. The Telescope method decomposes an entire set of processes into blocks of power-of-two size and merges the smaller blocks into larger blocks in stepwise fashion. This block merging process corresponds to the communication and computational overhead of the conversion, and since it can only merge one block per stage, it becomes inefficient as the number of binary blocks increases. In this paper, we focus on a single-stage conversion method using the 3-2 and 2-1 elimination approaches. The original scheduling method, proposed by Rabenseifner et al., is limited to an odd number of processes since it always schedules a single 3-2 elimination per conversion. Taking into consideration that the 3-2 elimination can be optimized on modern HPC systems, which can overlap the communication and computation, we propose 234 Scheduling for scheduling multiple 3-2 eliminations per conversion. The multiple 3-2 elimination scheduling enlarges the application range by enabling its use on an even number of processes. We evaluated 234 Scheduling applied to Binary-Swap on the K computer, which is a modern parallel HPC system, and confirmed its effectiveness.},
+  comment   = {A compositing algorithm that is similar to [Rabenseifner2004] and the remainder algorithm I am thinking about. (Image compositing for sort-last parallel rendering.) The difference is that where Rabenseifner and I want to do a "3-2 reduction" on a single group of 3 processes (to deal with iterations that have odd groups) so that you drop at most one process per piece, Nonaka makes as many 3 groups as possible (each dropping 1 process) and one group of 4, which drops 2 processes (a 4-2 reduction). It's not clear why the algorithm is dropping so many processes per iteration. I think they missunderstand Roabenseifner's algorithm and assume that all groups are 3-2 reduction or 2-1 reduction (or 4-2 reduction).},
+  doi       = {10.1109/HPCSim.2015.7237071},
+}
+
+@Article{Nonaka2018,
+  author   = {Jorji Nonaka and Kenji Ono and Masahiro Fujita},
+  title    = {{234Compositor}: A flexible parallel image compositing framework for massively parallel visualization environments},
+  journal  = {Future Generation Computer Systems},
+  year     = {2018},
+  volume   = {82},
+  pages    = {647--655},
+  abstract = {Leading-edge HPC systems have already been generating a vast amount of time-varying complex data sets, and future-generation HPC systems are expected to produce much higher amounts of such data, thus making their visualization and analysis a much more challenging task. In such scenario, the In-situ visualization approach, where the same HPC system is used for both numerical simulation and visualization, is expected to become more a necessity than an option. On massively parallel environments, the Sort-last approach, which requires final image compositing, has become the de facto standard for parallel rendering. In this work, we present the 234Compositor, a scalable and flexible parallel image compositor framework for massively parallel rendering applications. It is composed of a single-stage power-of-two conversion mechanism based on 234 Scheduling of 3-2 and 2-1 Eliminations, and a final image gathering mechanism based on Data Padding and MPI Rank Reordering for enabling the use of MPI_Gather collective operation. In addition, the hybrid MPI/OpenMP parallelism can also be applied to take advantage of current multi-node, multi-core architecture of modern HPC systems. We confirmed the scalability of the proposed approach by evaluating a Binary-Swap implementation of 234Compositor on the K computer, a Japanese leading-edge supercomputer installed at RIKEN AICS. We also evaluated an integration with HIVE (Heterogeneously Integrated Visual-analytic Environment) in order to verify a real-world usage. From the encouraging scalability results, we expect that this approach can also be useful even on the next-generation HPC systems which may demand higher level of parallelism.},
+  comment  = {An extension of [Nonaka2015]. The addition, as I understand it, is that it does a rank reordering and image padding to be able to do an MPI_Gather instead of an MPI_Gatherv, the latter of which is shown to be significantly slower.},
+  doi      = {10.1016/j.future.2017.02.011},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

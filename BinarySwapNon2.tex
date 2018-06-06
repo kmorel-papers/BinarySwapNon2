@@ -116,12 +116,15 @@
 \newcommand{\Binaryswap}{\textalgorithm{Binary swap}}
 
 \newcommand{\ttswap}{\textalgorithm{2-3 swap}}
+\newcommand{\Ttswap}{\textalgorithm{2-3 swap}}
 \newcommand{\naive}{\textalgorithm{naive}}
 \newcommand{\Naive}{\textalgorithm{Naive}}
 \newcommand{\telescoping}{\textalgorithm{telescoping}}
 \newcommand{\Telescoping}{\textalgorithm{Telescoping}}
 \newcommand{\remainder}{\textalgorithm{remainder}}
 \newcommand{\Remainder}{\textalgorithm{Remainder}}
+\newcommand{\ttfcomposite}{\textalgorithm{234 composite}}
+\newcommand{\Ttfcomposite}{\textalgorithm{234 composite}}
 
 \newcommand{\radixk}{\textalgorithm{radix-k}}
 \newcommand{\Radixk}{\textalgorithm{Radix-k}}
@@ -244,7 +247,7 @@ However, this is the first time all these algorithms have been brought together 
 \subsection{Base Binary Swap}
 \label{sec:BinarySwap}
 
-Binary swap is first introduced by Ma \etal\scite{BinarySwap}.
+Binary swap is first introduced by Ma \etal\scite{BinarySwap1}.
 It is a straightforward divide-and-conquer algorithm where at each phase each process exchanges pixels with another process.
 During the exchange, each process offloads half of its pixels, which are blended into the remaining images in the paired process.
 
@@ -288,16 +291,33 @@ In response, there are numerous modifications to binary swap the handle odd fact
 The most obvious way to manage odd factors is to find the largest power of 2 less than the number of processes and then offload images from any processes that do not fit in a group that size.
 In the example at right, we have 6 processes.
 The largest power of 2 less than 6 is 4, so two processes send their images away and drop out of the communication.
-The remaining 4 processes do a normal binary swap.
+The remaining 4 processes do a normal binary swap as outlined in Section \ref{sec:BinarySwap}.
 
 This method has been given multiple names such as \keyterm{reduced}\lcite{23Swap} and \keyterm{folding}\lcite{Moreland2011:SC}.
 To avoid confusion from the other techniques (many of which can be thought of as ``reducing'' or ``folding''), this paper refers to this technique as \keyterm{\naive}.
 
-\subsubsection{2-3 Swap}
+\subsubsection{234 Composite}
+
+One of the big drawbacks of the \naive technique is that it adds another iteration to the compositing.
+It also requires the transfer of full images, which potentially doubles the amount of data transferred or computed by each process.
+Nonaka \etal\scite{Nonaka2015,Nonaka2018} propose \ttfcomposite to roll the reduction into the first iteration of the binary swap algorithm.
+
+\Ttfcomposite does this using a combination of \keyterm{3-2 reduction} and \keyterm{4-2 reduction} operations.
+These operations take a group of 3 and 4 processes, respectively, and reduce them to a group of 2.
+The resulting 2 processes each end with half an image much like a standard binary-swap pair.
+
+\begin{wrapfigure}{r}{0pt}
+  \includegraphics[scale=.75]{234-composite-6-proc}
+\end{wrapfigure}
+In this example of 7 processes, there is 1 group of of 3-2 reduction and 1 group of 4-2 reduction.
+After the operations are complete, there are 4 remaining processes in a state equivalent to have running the first step of binary swap.
+The remainder of the algorithm follows that of binary swap.
 
 \subsubsection{Telescoping}
 
 \subsubsection{Remainder}
+
+\subsubsection{2-3 Swap}
 
 \subsection{Alternatives to Binary Swap}
 \label{sec:BinarySwapAlternatives}
@@ -465,6 +485,8 @@ Thus, we can conclude that the findings drawn from our virtual node scaling can 
 
 \subsubsection{Inconsistent Gather Times}
 \label{sec:Gather}
+
+\fix{Reference that optimizes gather by resizing images and reordering processes to use gather instead of gatherv: \cite{Nonaka2018}}
 
 \subsubsection{Errors in 2-3 Swap}
 \label{sec:2-3SwapErrors}
