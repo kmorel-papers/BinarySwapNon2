@@ -74,20 +74,6 @@
   comment   = {A basic overview of sort-last parallel image compositing methods. Includes discussion of direct-send, tree, binary-swap, 2-3 swap, and radix-k.},
 }
 
-@Article{BinarySwap2,
-  author  = {Kwan-Liu Ma and James S. Painter and Charles D. Hansen and Michael F. Krogh},
-  title   = {Parallel Volume Rendering Using Binary-Swap Compositing},
-  journal = {IEEE Computer Graphics and Applications},
-  year    = {1994},
-  volume  = {14},
-  number  = {4},
-  pages   = {59--68},
-  month   = {July/August},
-  comment = {One of the original binary-swap papers.},
-  doi     = {10.1109/38.291532},
-  url     = {http://dx.doi.org/10.1109/38.291532},
-}
-
 @Article{SkyBridge,
   author  = {Neal Singer},
   title   = {Sandia turns on Sky Bridge supercomputer},
@@ -193,6 +179,17 @@ This is not a great source. It is not a real publication, it is just a presentat
   abstract = {Modern supercomputers enable increasingly large N‐body simulations using unstructured point data. The structures implied by these points can be reconstructed implicitly. Direct volume rendering of radial basis function (RBF) kernels in domain‐space offers flexible classification and robust feature reconstruction, but achieving performant RBF volume rendering remains a challenge for existing methods on both CPUs and accelerators. In this paper, we present a fast CPU method for direct volume rendering of particle data with RBF kernels. We propose a novel two‐pass algorithm: first sampling the RBF field using coherent bounding hierarchy traversal, then subsequently integrating samples along ray segments. Our approach performs interactively for a range of data sets from molecular dynamics and astrophysics up to 82 million particles. It does not rely on level of detail or subsampling, and offers better reconstruction quality than structured volume rendering of the same data, exhibiting comparable performance and requiring no additional preprocessing or memory footprint other than the BVH. Lastly, our technique enables multi‐field, multi‐material classification of particle data, providing better insight and analysis. },
   comment  = {Documents the high performance volume rendering work lead by Aaron Knoll.},
   doi      = {https://doi.org/10.1111/cgf.12363},
+}
+
+@InProceedings{BinarySwap1,
+  author    = {Kwan-Liu Ma and James S. Painter and Charles D. Hansen and Michael F. Krogh},
+  title     = {A Data Distributed, Parallel Algorithm for Ray-Traced Volume Rendering},
+  booktitle = {Proceedings of the 1993 Symposium on Parallel Rendering},
+  year      = {1993},
+  pages     = {15--22},
+  comment   = {One of the original binary-swap papers.},
+  doi       = {10.1145/166181.166183},
+  url       = {http://dx.doi.org/10.1145/166181.166183},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}

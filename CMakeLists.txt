@@ -5,6 +5,10 @@ project(BinarySwapNon2 NONE)
 include(UseLATEX.cmake)
 
 set(images
+  images/binary-swap-1.pdf
+  images/binary-swap-2.pdf
+  images/binary-swap-3.pdf
+
   images/scaling-hdtv.pdf
   images/scaling-8k.pdf
   images/2-3-swap-overhead.pdf
