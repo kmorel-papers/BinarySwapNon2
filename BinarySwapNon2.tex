@@ -237,6 +237,7 @@ This section reviews the compositing algorithms used in this paper.
 Note that the compositing techniques outline here have been presented in some form in previous literature.
 However, this is the first time all these algorithms have been brought together and directly compared in a common code base.
 
+% Reduce the spacing around wrapped figures.
 \setlength{\intextsep}{0pt}
 \setlength{\columnsep}{2ex}
 
@@ -280,6 +281,17 @@ If there are any odd factors, then at some iteration there will be an odd number
 In response, there are numerous modifications to binary swap the handle odd factors.
 
 \subsubsection{Naive}
+
+\begin{wrapfigure}{r}{0pt}
+  \includegraphics[scale=.75]{naive}
+\end{wrapfigure}
+The most obvious way to manage odd factors is to find the largest power of 2 less than the number of processes and then offload images from any processes that do not fit in a group that size.
+In the example at right, we have 6 processes.
+The largest power of 2 less than 6 is 4, so two processes send their images away and drop out of the communication.
+The remaining 4 processes do a normal binary swap.
+
+This method has been given multiple names such as \keyterm{reduced}\lcite{23Swap} and \keyterm{folding}\lcite{Moreland2011:SC}.
+To avoid confusion from the other techniques (many of which can be thought of as ``reducing'' or ``folding''), this paper refers to this technique as \keyterm{\naive}.
 
 \subsubsection{2-3 Swap}
 
