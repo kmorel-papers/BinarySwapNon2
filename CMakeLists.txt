@@ -11,6 +11,8 @@ set(images
   images/naive.pdf
   images/234-composite-6-proc.pdf
   images/telescoping-7-proc.pdf
+  images/remainder-1.pdf
+  images/remainder-2.pdf
 
   images/scaling-hdtv.pdf
   images/scaling-8k.pdf

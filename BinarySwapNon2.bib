@@ -215,4 +215,17 @@ This is not a great source. It is not a real publication, it is just a presentat
   doi      = {10.1016/j.future.2017.02.011},
 }
 
+@InProceedings{Rabenseifner2004,
+  author    = {Rolf Rabenseifner and Jesper Larsson Tr\"{a}ff},
+  title     = {More Efficient Reduction Algorithms for Non-Power-of-Two Number of Processors in Message-Passing Parallel Systems},
+  booktitle = {Recent Advances in Parallel Virtual Machine and Message Passing Interface (EuroPVM/MPI)},
+  year      = {2004},
+  volume    = {3241},
+  series    = {Lecture Notes in Computer Science},
+  pages     = {36--46},
+  abstract  = {We present improved algorithms for global reduction operations for message-passing systems. Each of p processors has a vector of m data items, and we want to compute the element-wise “sum” under a given, associative function of the p vectors. The result, which is also a vector of m items, is to be stored at either a given root processor (MPI_Reduce), or all p processors (MPI_Allreduce). A further constraint is that for each data item and each processor the result must be computed in the same order, and with the same bracketing. Both problems can be solved in O(m+log2 p) communication and computation time. Such reduction operations are part of MPI (the Message Passing Interface), and the algorithms presented here achieve significant improvements over currently implemented algorithms for the important case where p is not a power of 2. Our algorithm requires ⌈log2 p⌉ + 1 rounds – one round off from optimal – for small vectors. For large vectors twice the number of rounds is needed, but the communication and computation time is less than 3mβ and 3/2mγ, respectively, an improvement from 4mβ and 2mγ achieved by previous algorithms (with the message transfer time modeled as α + mβ, and reduction-operation execution time as mγ). For p=3× 2 n and p=9× 2 n and small m ≤ b for some threshold b, and p=q 2 n with small q, our algorithm achieves the optimal ⌈log2 p⌉ number of rounds.},
+  comment   = {A paper that, among other things, presents a general reduction that is essentially the same as the "remainder" algorithm that I have been exploring. This paper calls the technique 3-to-2 process reduction. One difference between Rabenseifner's approach and mine is that in my approach one process divides its data and sends each half to a different process and drop out whereas Rabenseifner's approach has each process receive half and one process also sends half and then drops out.},
+  doi       = {10.1007/978-3-540-30218-6_13},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}

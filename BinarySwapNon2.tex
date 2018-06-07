@@ -300,7 +300,7 @@ To avoid confusion from the other techniques (many of which can be thought of as
 
 One of the big drawbacks of the \naive technique is that it adds another iteration to the compositing.
 It also requires the transfer of full images, which potentially doubles the amount of data transferred or computed by each process.
-Nonaka \etal\scite{Nonaka2015,Nonaka2018} propose \ttfcomposite to roll the reduction into the first iteration of the binary swap algorithm.
+Nonaka \etal\scite{Nonaka2015,Nonaka2018} propose \keyterm{\ttfcomposite} to roll the reduction into the first iteration of the binary swap algorithm.
 
 \Ttfcomposite does this using a combination of \keyterm{3-2 reduction} and \keyterm{4-2 reduction} operations.
 These operations take a group of 3 and 4 processes, respectively, and reduce them to a group of 2.
@@ -315,7 +315,7 @@ The remainder of the algorithm follows that of binary swap.
 
 \subsubsection{Telescoping}
 
-Moreland \etal\scite{Moreland2011:SC} propose the \telescoping algorithm.
+Moreland \etal\scite{Moreland2011:SC} propose the \keyterm{\telescoping} algorithm.
 Like the \naive algorithm, \telescoping reduces the problem to groups that are a power of 2.
 However, rather than reduce the size of the groups before compositing starts, \telescoping performs this reduction after compositing primarily finishes.
 It does this by breaking the processes into a series of groups that are the largest powers of 2 that it can make.
@@ -338,6 +338,24 @@ Since smaller groups have less work, we can expect the smaller groups to finish 
 %% For example, if compositing with $2^{i} + 1$ processes, the lone process will have to send to $2^{i}$ processes, as demonstrated at right.
 
 \subsubsection{Remainder}
+
+Rather than attempt to reduce the number of processes to a power of 2, another approach is to modify the binary swap algorithm to manage the situation where a group cannot be evenly divided.
+A simple approach, which we will refer to as \keyterm{\remainder}, simply rolls the image from any remainder when dividing the processes by employing a single 3-2 reduction to absorb the remainder.
+This is roughly equivalent to the reduction technique proposed by Rabenseifner and Tr\"{a}ff\scite{Rabenseifner2004} although, to the author's knowledge, this has not been directly applied to parallel rendering.
+(Also, the implementation used in this paper actually uses the overlap variant of 3-2 reduction as proposed by Nonaka\scite{Nonaka2015}.)
+
+\begin{wrapfigure}{3}{0pt}
+  \includegraphics[scale=.75]{remainder-1}
+\end{wrapfigure}
+In this example of 7 processes to the right, the processes are divided by employing a 3-2 reduction on the last 3 processes.
+The last process drops out of the computation at this point.
+
+\begin{wrapfigure}{3}{0pt}
+  \includegraphics[scale=.75]{remainder-2}
+\end{wrapfigure}
+The next (and final) iteration has groups of 3.
+These again are managed by a 3-2 reduction.
+The highlighted processes 0, 2, and 4 blend image data in processes 0 and 2 while dropping process 4.
 
 \subsubsection{2-3 Swap}
 
