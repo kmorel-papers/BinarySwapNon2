@@ -315,6 +315,28 @@ The remainder of the algorithm follows that of binary swap.
 
 \subsubsection{Telescoping}
 
+Moreland \etal\scite{Moreland2011:SC} propose the \telescoping algorithm.
+Like the \naive algorithm, \telescoping reduces the problem to groups that are a power of 2.
+However, rather than reduce the size of the groups before compositing starts, \telescoping performs this reduction after compositing primarily finishes.
+It does this by breaking the processes into a series of groups that are the largest powers of 2 that it can make.
+It then runs binary swap on all such groups simultaneously.
+When compositing finishes, the smaller groups transfer their images to the larger groups.
+
+\begin{wrapfigure}{3}{0pt}
+  \includegraphics[scale=.75]{telescoping-7-proc}
+\end{wrapfigure}
+In the example at right, 7 processes are split into a group of 4, a group of 2, and a group of 1 (all perfect powers of 2).
+Binary swap is run concurrently and independently on each group.
+The group of size 1 splits its image and sends it to the size 2 group.
+Subsequently, the size 2 group splits its images and sends them to the size 4 group (thus collapsing the images in a telescoping manner).
+Since smaller groups have less work, we can expect the smaller groups to finish more quickly and have its data in transit while the larger groups finish.
+
+%% \begin{wrapfigure}{3}{0pt}
+%%   \includegraphics[scale=.75]{telescoping-9-proc}
+%% \end{wrapfigure}
+%% One odd feature of \telescoping is that small groups might have to send many messages to the next largest group.
+%% For example, if compositing with $2^{i} + 1$ processes, the lone process will have to send to $2^{i}$ processes, as demonstrated at right.
+
 \subsubsection{Remainder}
 
 \subsubsection{2-3 Swap}
@@ -322,9 +344,9 @@ The remainder of the algorithm follows that of binary swap.
 \subsection{Alternatives to Binary Swap}
 \label{sec:BinarySwapAlternatives}
 
-Direct Send
+\fix{Direct Send} \fix{SLIC as a varient of that}
 
-Radix-k
+\fix{Radix-k}
 
 \section{Parallel Rendering Mini-App}
 

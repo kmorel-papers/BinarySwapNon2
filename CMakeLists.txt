@@ -10,6 +10,7 @@ set(images
   images/binary-swap-3.pdf
   images/naive.pdf
   images/234-composite-6-proc.pdf
+  images/telescoping-7-proc.pdf
 
   images/scaling-hdtv.pdf
   images/scaling-8k.pdf
