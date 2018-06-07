@@ -359,6 +359,25 @@ The highlighted processes 0, 2, and 4 blend image data in processes 0 and 2 whil
 
 \subsubsection{2-3 Swap}
 
+All the previous algorithms for odd factors of processes require processes to go idle at some point during the computation.
+Yu \etal\scite{23Swap} describe \keyterm{\ttswap}, which can perform image compositing on any number of processes while balancing the computation among all processes at all iterations.
+It does so by dividing processes into groups of 2 or 3 and likewise dividing images by 2 and 3.
+
+\begin{wrapfigure}{3}{0pt}
+  \includegraphics[scale=.75]{2-3-swap-1}
+\end{wrapfigure}
+For example, in the first step of a 7 process composite, shown at right, splits the processes in a group that does a 3-way swap and 2 more groups that do a 2-way swap.
+The details on when \ttswap does a 2-way vs. 3-way swap is complicated and requires precomputing a compositing tree.
+For details, see Yu's paper\lcite{23Swap}.
+
+\begin{wrapfigure}{3}{0pt}
+  \includegraphics[scale=.75]{2-3-swap-2}
+\end{wrapfigure}
+After the first step it is notable that the image partitions of processes do not line up as the do for binary swap.
+\Ttswap manages this by interlacing the processes that are regrouped and redividing evenly.
+(Note the reordering of processes in this example.)
+The interlacing ensures that each process receives only pixels those it started with.
+
 \subsection{Alternatives to Binary Swap}
 \label{sec:BinarySwapAlternatives}
 

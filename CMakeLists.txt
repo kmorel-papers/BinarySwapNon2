@@ -13,6 +13,8 @@ set(images
   images/telescoping-7-proc.pdf
   images/remainder-1.pdf
   images/remainder-2.pdf
+  images/2-3-swap-1.pdf
+  images/2-3-swap-2.pdf
 
   images/scaling-hdtv.pdf
   images/scaling-8k.pdf
