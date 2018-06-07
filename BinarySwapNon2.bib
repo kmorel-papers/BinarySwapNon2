@@ -228,4 +228,116 @@ This is not a great source. It is not a real publication, it is just a presentat
   doi       = {10.1007/978-3-540-30218-6_13},
 }
 
+@InProceedings{DirectSend1,
+  author    = {Ulrich Neumann},
+  title     = {Parallel Volume-Rendering Algorithm Performance on Mesh-Connected Multicomputers},
+  booktitle = {Proceedings of the 1993 Symposium on Parallel Rendering},
+  year      = {1993},
+  pages     = {97--104},
+  comment   = {One of the original papers on the direct-send method of parallel image compositing.},
+  doi       = {10.1145/166181.166196},
+  url       = {http://dx.doi.org/10.1145/166181.166196},
+}
+
+@InProceedings{SLIC,
+  author    = {Aleksander Stompel and Kwan-Liu Ma and Eric B. Lum and James Ahrens and John Patchett},
+  title     = {{SLIC}: Scheduled Linear Image Compositing for Parallel Volume Rendering},
+  booktitle = {Proceedings IEEE Symposium on Parallel and Large-Data Visualization and Graphics (PVG 2003)},
+  year      = {2003},
+  pages     = {33--40},
+  month     = {October},
+  comment   = {The SLIC algorithm is basically direct-send with an optimization to favor sending pixels to processes that also have generated a pixel to blend.  This reduces the overall communication, but is bound to have the same scalability problems as direct-send.},
+}
+
+@InProceedings{Yang1999,
+  author    = {Don-Lin Yang and Jen-Chih Yu and Yeh-Ching Chung},
+  title     = {Efficient Compositing Methods for the Sort-Last-Sparse Parallel Volume Rendering System on Distributed Memory Multicomputers},
+  booktitle = {1999 International Conference on Parallel Processing},
+  year      = {1999},
+  pages     = {200--207},
+  comment   = {Compares the use of bounding boxes vs. run-length encoding (RLE) to identify active pixels.  Also describes using the bounding boxes to speed up the intial active-pixel encoding.  Also describes using scan-line interlacing (called interleaving in the paper) to load balance active pixels.},
+  doi       = {10.1109/ICPP.1999.797405},
+  url       = {http://dx.doi.org/10.1109/ICPP.1999.797405},
+}
+
+@InProceedings{Takeuchi2003,
+  author    = {Akira Takeuchi and Fumihiko Ino and Kenichi Hagihara},
+  title     = {An Improvement on Binary-Swap Compositing for Sort-Last Parallel Rendering},
+  booktitle = {Proceedings of the 2003 ACM Symposium on Applied Computing},
+  year      = {2003},
+  pages     = {996--1002},
+  comment   = {Introduces interlacing into sort-last image-compositing parallel rendering to fix run-length/active-pixel-encoding load-balance issues. (The paper calls it interleaving, but I think interlacing is a more accurate term.)
+
+The paper also shows improvements through the use of bounding rectangles and run length (or active pixel) encoding.},
+  doi       = {10.1145/952532.952728},
+  url       = {http://dx.doi.org/10.1145/952532.952728},
+}
+
+@Article{Lee1996,
+  author   = {Tong-Yee Lee and C.S. Raghavendra and John B. Nicholas},
+  title    = {Image Composition Schemes for Sort-Last Polygon Rendering on {2D} Mesh Multicomputers},
+  journal  = {IEEE Transactions on Visualization and Computer Graphics},
+  year     = {1996},
+  volume   = {2},
+  number   = {3},
+  pages    = {202--217},
+  month    = sep,
+  abstract = {In a sort-last polygon rendering system, the efficiency of image composition is very important for achieving fast rendering. In this paper, the implementation of a sort-last rendering system on a general purpose multicomputer system is described. A two-phase sort-last-full image composition scheme is described first, and then many variants of it are presented for 2D mesh message-passing multicomputers, such as the Intel Delta and Paragon. All the proposed schemes are analyzed and experimentally evaluated on Caltech's Intel Delta machine for our sort-last parallel polygon renderer. Experimental results show that sort-last-sparse strategies are better suited than sort-last-full schemes for software implementation on a general purpose multicomputer system. Further, interleaved composition regions perform better than coherent regions. In a large multicomputer system. Performance can be improved by carefully scheduling the tasks of rendering and communication. Using 512 processors to render our test scenes, the peak rendering rate achieved on a 282,144 triangle dataset is dose to 4.6 million triangles per second which is comparable to the speed of current state-of-the-art graphics workstations.},
+  comment  = {Introduces the parallel pipeline method for image-compositing for sort-last parallel rendering.},
+  doi      = {10.1109/2945.537304},
+}
+
+@InProceedings{Wu2009,
+  author    = {Qishi Wu and Jinzhu Gao and Zizhong Chen and Mengxia Zhu},
+  title     = {Pipelining parallel image compositing and delivery for efficient remote visualization},
+  booktitle = {Journal of Parallel and Distributed Computing},
+  year      = {2009},
+  volume    = {69},
+  number    = {3},
+  pages     = {230--238},
+  month     = {March},
+  abstract  = {Scientific datasets of large volumes generated by next-generation computational sciences need to be transferred and processed for remote visualization and distributed collaboration among a geographically dispersed team of scientists. Parallel visualization using high-performance computing facilities is a typical approach to processing such increasingly large datasets. We propose an optimized image compositing scheme with linear pipeline and adaptive transport to support efficient image delivery to a remote client. The proposed scheme arranges an arbitrary number of parallel processors within a cluster in a linear order and divides the image into a carefully selected number of segments, which flow through the linear in-cluster pipeline and wide-area networks to the remote client consecutively. We analytically determine the segment size that minimizes the final image display time and derive the conditions where the proposed image compositing and delivery scheme outperforms the traditional schemes including the binary swap algorithm. In order to match the transport throughput for image delivery over wide-area networks to the pipelining rate for image compositing within the cluster, we design a class of transport protocols using stochastic approximation methods that are able to stabilize the data flow at a target rate. The experimental results from remote visualization of large-scale scientific datasets justify the correctness of our theoretical analysis and illustrate the superior performances of the proposed method.},
+  comment   = {Uses the parallel pipeline method to perform sort-last image compositing for parallel rendering and image delivery. The trick is that the client the image is delivered to is tacked on to the end of the pipeline and the image is streamed over the WAN as it is compositied. The paper argues that such a setup is more efficient for image delivery than binary-swap.
+
+However, the paper does not take into acount any load imbalance that would be caused by compressing the images. It also only measures to up to 128 cores, which is not a particularly large job.
+
+The references for previous work is worth going over for some less well known image compositing including a reference to parallel pipeline and rotate tiling.
+},
+  doi       = {10.1016/j.jpdc.2008.11.004},
+  url       = {http://dx.doi.org/10.1016/j.jpdc.2008.11.004},
+}
+
+@Article{Lin2004,
+  author   = {Chin-Feng Lin and Shih-Kuan Liao and Yeh-Ching Chung and Don-Lin Yang},
+  title    = {A Rotate-Tiling Image Compositing Method for Sort-Last Parallel Volume Rendering Systems on Distributed Memory Multicomputers},
+  journal  = {Journal of Information Science and Engineering},
+  year     = {2004},
+  volume   = {20},
+  number   = {4},
+  pages    = {643--664},
+  abstract = {The binary-swap (BS) and the parallel-pipelined (PP) methods are two well-known image compositing methods for sort-last parallel volume rendering systems. However, these two methods either restrict the number of processors to a power-of-two or require many communication steps to transform image data that results in high data communication overheads. In this paper, we present an efficient image compositing method, the rotate-tiling (RT) method, for sort-last parallel volume rendering systems on distributed memory multicomputers. According to the number of initial blocks of a partial image, the number of processors, the image sizes, and the characteristics of parallel machines, the RT method can fully utilize all available processors and minimize the data communication overheads. To evaluate the performance of the RT method, both theoretical analysis and experimental test of the BS, the PP, and the RT methods are conducted. In the theoretical analysis, we derive the best performance bound of the RT method in terms of the number of initial blocks of a partial image, the number of processors, the image sizes, and the characteristics of parallel machines. In the experimental test, we implemented these three image compositing methods on an IBM SP2 parallel machine and a PC cluster. The experimental results show that the RT method outperforms the BS and the PP methods for all test samples and match the results analyzed in the theoretical analysis.},
+  comment  = {The rotate-tiling method to composite images for sort-last parallel rendering.},
+  url      = {http://jise.iis.sinica.edu.tw/JISESearch/pages/View/PaperView.jsf?keyId=67_1099},
+}
+
+@InProceedings{RadixK,
+  author    = {Tom Peterka and David Goodell and Robert Ross and Han-Wei Shen and Rajeev Thakur},
+  title     = {A Configurable Algorithm for Parallel Image-Compositing Applications},
+  booktitle = {Proceedings of the Conference on High Performance Computing Networking, Storage and Analysis (SC '09)},
+  year      = {2009},
+  month     = {November},
+  comment   = {Introduces the radix-k sort-last image-compositing parallel-rendering algorithm.},
+  doi       = {10.1145/1654059.1654064},
+  url       = {http://dx.doi.org/10.1145/1654059.1654064},
+}
+
+@InProceedings{Kendall2010,
+  author    = {Wesley Kendall and Tom Peterka and Jian Huang and Han-Wei Shen and Robert Ross},
+  title     = {Accelerating and Benchmarking Radix-k Image Compositing at Large Scale},
+  booktitle = {Eurographics Symposium on Parallel Graphics and Visualization (EGPGV)},
+  year      = {2010},
+  month     = {May},
+  comment   = {Provides an overlap analysis of the radix-k algorithm that explains how the algorithm improves over binary-swap by overlapping much of the communication with the computation for pixel blending.  Also introduces run-length encoding to the radix-k algorithm (actually, it's active-pixel encoding, but they don't call it that).  Because the active-pixel encoding unbalances the workload, they introduce a repartitioning scheme in the image divisions, but the overhead for that is too great to be useful in practice.},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}

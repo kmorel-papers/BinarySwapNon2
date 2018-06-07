@@ -381,9 +381,22 @@ The interlacing ensures that each process receives only pixels those it started 
 \subsection{Alternatives to Binary Swap}
 \label{sec:BinarySwapAlternatives}
 
-\fix{Direct Send} \fix{SLIC as a varient of that}
+Finally, we quickly review some alternatives to binary swap that are viable but not considered in this paper.
 
-\fix{Radix-k}
+\keyterm{Direct send}\lcite{DirectSend1} is a simple algorithm that assigns a piece of the image to each process, and then each process sends all its pieces directly to the responsible process.
+Direct send minimizes latency because all data reaches its destination in one step, but the number of messages required to do this grows quadratically with respect to the number of processes.
+Thus, the technique is unsuitable for large numbers of processes\lcite{Moreland2011:SC}.
+An often cited but seldom implemented variant of direct send is \keyterm{Scheduled Linear Image Compositing} (SLIC)\lcite{SLIC}, which optimizes pixel assignment by assigning non-contiguous image pieces.
+%However, SLIC can only be used on regular geometry (to predict what parts of the image are covered), and it is likely to have the same scaling problems as direct send (although this has never been directly studied).
+
+The \keyterm{parallel pipeline} method\lcite{Lee1996} establishes processes in a linear chain where image data is passed down the chain.
+Parallel pipeline has a long latency as images must be passed down the entire pipeline, but it has been shown that the regular message passing can be used to optimize for physical hardware connections\lcite{Wu2009}.
+\keyterm{Rotate tiling}\lcite{Lin2004} is a variant of parallel pipeline that establishes multiple pipelines to reduce latency.
+
+\keyterm{Radix-k}\lcite{RadixK} combines binary swap and direct send by allowing each iteration of binary swap to group into any size rather than just 2 and uses a direct send in that subgroup to swap data around.
+Because it can divide processes in any way, it is not limited to powers of 2 like binary swap.
+However, because the performance of radix-k can vary based on factors chosen\lcite{Kendall2010,Moreland2011:SC}, it would be interesting to explore ways to adjust available factors.
+However, this is beyond the scope of this paper and left for future work.
 
 \section{Parallel Rendering Mini-App}
 
@@ -470,7 +483,7 @@ In contrast, miniGraphics sacrifices some efficiency for readability of code and
 \label{sec:FullImages}
 
 The compositing reported in Section \ref{sec:Scaling} compresses images during compositing using run lengths of active and inactive pixels (sometimes called \keyterm{active pixel encoding}).
-Any practical system should employ active pixel encoding or something like it as previous work has shown dramatic improvements in compositing time\lcite{Ahrens1998,Moreland2001}.
+Any practical system should employ active pixel encoding or something like it as previous work has shown dramatic improvements in compositing time\lcite{Ahrens1998,Yang1999,Moreland2001,Takeuchi2003}.
 However, active pixel encoding can change the performance behavior of the compositing.
 The overall time will increase and decrease depending on the effectiveness of the compression.
 Image compression can also add load imbalance.
