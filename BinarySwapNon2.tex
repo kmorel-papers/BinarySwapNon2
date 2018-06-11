@@ -398,10 +398,19 @@ Because it can divide processes in any way, it is not limited to powers of 2 lik
 However, because the performance of radix-k can vary based on factors chosen\lcite{Kendall2010,Moreland2011:SC}, it would be interesting to explore ways to adjust available factors.
 However, this is beyond the scope of this paper and left for future work.
 
-\section{Parallel Rendering Mini-App}
-
-\section{Results}
+\section{Experiments}
 \label{sec:Results}
+
+For these experiments, versions of binary swap and the variants described in Section \ref{sec:BinarySwapVariations} were implemented in a common code base.
+All the algorithms use a common infrastructure for rendering and image data structures.
+This test infrastructure renders a simple scene where each process rendered an opaque box such as shown in Figure \ref{fig:RenderExample}.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=\linewidth]{render-example}
+  \caption{An example image rendered during tests.}
+  \label{fig:RenderExample}
+\end{figure}
 
 The experiments were run on the Sky Bridge cluster at Sandia National Laboratories\lcite{SkyBridge}.
 Sky Bridge is a water cooled Cray capacity cluster with 1,848 nodes (although at most 512 nodes were used at any one time during these experiments).
@@ -409,7 +418,6 @@ Each node contains 2 2.6 GHz Intel Xeon E5-2670 processors, each with 8 cores (1
 The nodes are connected with a Infiniband interconnect.
 The experiments were run in ``virtual node'' mode where each core ran a separate MPI process (except where specified in Section \ref{sec:VNCompare}).
 
-The experiments rendered a simple scene where each process rendered an opaque box \fix{Should be an image of this somewhere.}.
 Each experiment has a minimum of 10 trials (rendered frames).
 Each trial is performed from random camera rotations around the geometry (although these random locations are consistent across experiments by using the same pseudorandom number generator seed).
 Rendering times for two different image sizes are reported: HDTV ($1920 \times 1080$) and 8K UHD ($7680 \times 4320$).
@@ -475,9 +483,9 @@ This is somewhat counterintuitive for the \remainder algorithm, which, much like
 However, unlike the \naive algorithm, \remainder delays letting processes go idle until as late as possible.
 More importantly, \remainder has fewer iterations than \naive with each iteration dividing the amount of work done by each process in half.
 
-A fourth observation is that all of the \binaryswap algorithms implemented in miniGraphics perform less well than the IceT software.
+A fourth observation is that all of the \binaryswap algorithms implemented for our experiment perform less well than the IceT software.
 IceT uses a combination of \radixk and \telescoping, but the real performance gain is in its high-speed blending and management of memory to reduce allocation and messages.
-In contrast, miniGraphics sacrifices some efficiency for readability of code and ease of implementation to facilitate comparisons like those in this paper.
+In contrast, the experimental code sacrifices some efficiency for readability of code and ease of implementation to facilitate comparisons like those in this paper.
 
 \subsection{No Image Compression}
 \label{sec:FullImages}

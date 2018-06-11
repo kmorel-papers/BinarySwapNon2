@@ -16,6 +16,8 @@ set(images
   images/2-3-swap-1.pdf
   images/2-3-swap-2.pdf
 
+  images/render-example.png
+
   images/scaling-hdtv.pdf
   images/scaling-8k.pdf
   images/2-3-swap-overhead.pdf
