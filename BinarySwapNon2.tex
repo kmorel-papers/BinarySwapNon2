@@ -618,9 +618,27 @@ However, some of the less egregious are left in the results (such as with the sp
 
 \section{Conclusions}
 
+This paper presents a comprehensive comparative study of many parallel image compositing based on \binaryswap.
+Never before have all these algorithms been directly compared, and the results buck some previously accepted notions.
+
+The clear and surprise winner of the comparison is the \remainder version of binary swap.
+\Remainder is simple to implement (the implementation used in these experiments has less lines of code than even the \naive algorithm) and is consistently a top performer.
+In contrast, \ttfcomposite's is over twice as long as \remainder's (according to cloc\lcite{cloc}) but seldom performs better than \naive.
+The implementation for \ttswap is almost 4 times as long as \remainder, and, in the authors subjective experience, much more difficult to implement.
+
+Also surprisingly, the simple but effective \remainder technique does not seem to be used at all in previous literature of parallel rendering.
+Ultimately, the parallel rendering research community should stop attempting to find complex solutions to manage undesirable factors but rather use a simple technique to absorb the remaining images when using factors that do not divide processes evenly.
+
 %% if specified like this the section will be committed in review mode
 \acknowledgments{
-  \fix{Sandia and ASCR acknowledgments here.}
+  This material is based upon work supported by the U.S.
+  Department of Energy, Office of Science, Office of Advanced Scientific Computing Research, under Award Number 14-017566.
+
+  This paper describes objective technical results and analysis.
+  Any subjective views or opinions that might be expressed in the paper do not necessarily represent the views of the U.S.
+  Department of Energy or the United States Government.
+  Sandia National Laboratories is a multimission laboratory managed and operated by National Technology \& Engineering Solutions of Sandia, LLC, a wholly owned subsidiary of Honeywell International Inc., for the U.S.
+  Department of Energy's National Nuclear Security Administration under contract DE-NA0003525.
 }
 
 %\bibliographystyle{abbrv}
