@@ -356,4 +356,15 @@ The references for previous work is worth going over for some less well known im
   note   = {\url{https://github.com/AlDanial/cloc}},
 }
 
+@InProceedings{Mueller1995,
+  author    = {Carl Mueller},
+  title     = {The Sort-First Rendering Architecture for High-Performance Graphics},
+  booktitle = {Proceedings of the 1995 Symposium on Interactive 3D Graphics},
+  year      = {1995},
+  pages     = {75--84},
+  comment   = {An early sort-first paper describing a system that caches geometry for frame-to-frame coherence and also provides some load balancing of the screen-space partiitons.  An interesting feature of the paper to note now is the poor scaling caused by the "overlap factor," which is the ratio of primitives (e.g. triangles) that must be replicated because they overlap screen partition (tile) boundaries.  This is a good pair for [Wylie2001] to argue that sort-last is the scalable solution and sort-first is not.},
+  doi       = {10.1145/199404.199417},
+  url       = {http://dx.doi.org/10.1145/199404.199417},
+}
+
 @Comment{jabref-meta: databaseType:bibtex;}
