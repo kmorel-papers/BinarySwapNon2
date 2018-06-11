@@ -594,7 +594,27 @@ However, in this case it might be better to not rely on MPI-provided collectives
 \subsubsection{Errors in 2-3 Swap}
 \label{sec:2-3SwapErrors}
 
+Several checks were run during the experiments to ensure the correctness of the compositing algorithms.
+For most of the runs there were no problems.
+However, during a few of the \ttswap runs bad pixels were detected at the top of the images like those in Figure \ref{fig:BadComposite23Swap}.
+It appears to be an indexing problem caused by a race condition that cannot be easily replicated.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=.5\linewidth]{bad-composite-2-3-swap}
+  \caption{Compositing errors detected during \ttswap.}
+  \label{fig:BadComposite23Swap}
+\end{figure}
+
+Although some of the images are incorrect, it seems unlikely that the errors are causing a significant impact in the recorded timings.
+Furthermore, since \ttswap is not one of the better performing algorithms, there seems little reason to suffer the aggravation to fix the problem.
+
 \subsubsection{System Slowdowns}
+
+During the experiments it was noticed that some of the runs gave anomalously long run times.
+These appear to be intermittent issues with the testing cluster.
+Several of these experiments were re-run and found that the extra run time was in fact anomalous.
+However, some of the less egregious are left in the results (such as with the spikes seen in Figure \ref{fig:NoCompressHDTV}).
 
 \section{Conclusions}
 

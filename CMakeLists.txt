@@ -17,6 +17,7 @@ set(images
   images/2-3-swap-2.pdf
 
   images/render-example.png
+  images/bad-composite-2-3-swap.png
 
   images/scaling-hdtv.pdf
   images/scaling-8k.pdf
