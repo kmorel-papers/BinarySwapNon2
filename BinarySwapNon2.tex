@@ -373,10 +373,10 @@ For details, see Yu's paper\lcite{23Swap}.
 \begin{wrapfigure}{3}{0pt}
   \includegraphics[scale=.75]{2-3-swap-2}
 \end{wrapfigure}
-After the first step it is notable that the image partitions of processes do not line up as the do for binary swap.
+After the first step it is notable that the image partitions of processes do not line up as they do for binary swap.
 \Ttswap manages this by interlacing the processes that are regrouped and redividing evenly.
 (Note the reordering of processes in this example.)
-The interlacing ensures that each process receives only pixels those it started with.
+The interlacing ensures that each process receives only pixels that it started with.
 
 \subsection{Alternatives to Binary Swap}
 \label{sec:BinarySwapAlternatives}
@@ -563,10 +563,33 @@ Thus, we can conclude that the findings drawn from our virtual node scaling can 
 
 \subsection{Aberrant Readings}
 
+For clarity, the results presented in the previous sections have been selected for clarity.
+For completeness, this section documents some of the more unusual or inconsistent measurements taken.
+
 \subsubsection{Inconsistent Gather Times}
 \label{sec:Gather}
 
-\fix{Reference that optimizes gather by resizing images and reordering processes to use gather instead of gatherv: \cite{Nonaka2018}}
+The previously reported compositing times include the process up to the point where the resulting image is divided among multiple processes.
+However, in any practical system, the images must be gathered together for display.
+It is known that this gathering can take a significant portion of the compositing time\lcite{Rabenseifner2004,Moreland2011:SC,Larsen2016,Nonaka2018}.
+
+The software used for these experiments does this collection with a sequence of MPI\_Gather and MPI\_Gatherv commands.
+However, as shown in Figure \ref{fig:GatherTimes}, the cluster used for these experiments is giving wildly different performance for the gather operations that seems to have little to do with the compositing algorithms analized in this paper.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.5\linewidth]{gather-hdtv}%
+  \includegraphics[width=.5\linewidth]{gather-8k}
+  \caption{
+    The time spent while gathering image data after the partial composite.
+    At left are times for HDTV ($1920 \times 1080$) images and at right are times for 8K UHD ($7680 \times 4320$) images.
+  }
+  \label{fig:GatherTimes}
+\end{figure}
+
+These times suggest that a different mechanism for collection is needed.
+Nonaka \etal\scite{Nonaka2018} has success by adding padding and process reordering to replace MPI\_Gatherv with MPI\_Gather.
+However, in this case it might be better to not rely on MPI-provided collectives at all.
 
 \subsubsection{Errors in 2-3 Swap}
 \label{sec:2-3SwapErrors}

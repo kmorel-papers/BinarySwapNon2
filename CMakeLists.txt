@@ -25,6 +25,8 @@ set(images
   images/no-compress-8k.pdf
   images/vn-vs-smp-hdtv.pdf
   images/vn-vs-smp-8k.pdf
+  images/gather-hdtv.pdf
+  images/gather-8k.pdf
   )
 
 add_latex_document(BinarySwapNon2.tex
