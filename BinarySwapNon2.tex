@@ -321,7 +321,7 @@ It does this by breaking the processes into a series of groups that are the larg
 It then runs binary swap on all such groups simultaneously.
 When compositing finishes, the smaller groups transfer their images to the larger groups.
 
-\begin{wrapfigure}{3}{0pt}
+\begin{wrapfigure}{r}{0pt}
   \includegraphics[scale=.75]{telescoping-7-proc}
 \end{wrapfigure}
 In the example at right, 7 processes are split into a group of 4, a group of 2, and a group of 1 (all perfect powers of 2).
@@ -330,7 +330,7 @@ The group of size 1 splits its image and sends it to the size 2 group.
 Subsequently, the size 2 group splits its images and sends them to the size 4 group (thus collapsing the images in a telescoping manner).
 Since smaller groups have less work, we can expect the smaller groups to finish more quickly and have its data in transit while the larger groups finish.
 
-%% \begin{wrapfigure}{3}{0pt}
+%% \begin{wrapfigure}{r}{0pt}
 %%   \includegraphics[scale=.75]{telescoping-9-proc}
 %% \end{wrapfigure}
 %% One odd feature of \telescoping is that small groups might have to send many messages to the next largest group.
@@ -343,13 +343,13 @@ A simple approach, which we will refer to as \keyterm{\remainder}, simply rolls 
 This is roughly equivalent to the reduction technique proposed by Rabenseifner and Tr\"{a}ff\scite{Rabenseifner2004} although, to the author's knowledge, this has not been directly applied to parallel rendering.
 (Also, the implementation used in this paper actually uses the overlap variant of 3-2 reduction as proposed by Nonaka\scite{Nonaka2015}.)
 
-\begin{wrapfigure}{3}{0pt}
+\begin{wrapfigure}{r}{0pt}
   \includegraphics[scale=.75]{remainder-1}
 \end{wrapfigure}
 In this example of 7 processes to the right, the processes are divided by employing a 3-2 reduction on the last 3 processes.
 The last process drops out of the computation at this point.
 
-\begin{wrapfigure}{3}{0pt}
+\begin{wrapfigure}{r}{0pt}
   \includegraphics[scale=.75]{remainder-2}
 \end{wrapfigure}
 The next (and final) iteration has groups of 3.
@@ -362,14 +362,14 @@ All the previous algorithms for odd factors of processes require processes to go
 Yu \etal\scite{23Swap} describe \keyterm{\ttswap}, which can perform image compositing on any number of processes while balancing the computation among all processes at all iterations.
 It does so by dividing processes into groups of 2 or 3 and likewise dividing images by 2 and 3.
 
-\begin{wrapfigure}{3}{0pt}
+\begin{wrapfigure}{r}{0pt}
   \includegraphics[scale=.75]{2-3-swap-1}
 \end{wrapfigure}
 For example, in the first step of a 7 process composite, shown at right, splits the processes in a group that does a 3-way swap and 2 more groups that do a 2-way swap.
 The details on when \ttswap does a 2-way vs. 3-way swap is complicated and requires precomputing a compositing tree.
 For details, see Yu's paper\lcite{23Swap}.
 
-\begin{wrapfigure}{3}{0pt}
+\begin{wrapfigure}{r}{0pt}
   \includegraphics[scale=.75]{2-3-swap-2}
 \end{wrapfigure}
 After the first step it is notable that the image partitions of processes do not line up as they do for binary swap.
@@ -400,16 +400,14 @@ However, this is beyond the scope of this paper and left for future work.
 \section{Experiments}
 \label{sec:Results}
 
+\begin{wrapfigure}{r}{0pt}
+  \includegraphics[width=.5\linewidth]{render-example}
+  %% \caption{An example image rendered during tests.}
+  %% \label{fig:RenderExample}
+\end{wrapfigure}
 For these experiments, versions of binary swap and the variants described in Section \ref{sec:BinarySwapVariations} were implemented in a common code base.
 All the algorithms use a common infrastructure for rendering and image data structures.
-This test infrastructure renders a simple scene where each process rendered an opaque box such as shown in Figure \ref{fig:RenderExample}.
-
-\begin{figure}[htb]
-  \centering
-  \includegraphics[width=\linewidth]{render-example}
-  \caption{An example image rendered during tests.}
-  \label{fig:RenderExample}
-\end{figure}
+This test infrastructure renders a simple scene where each process rendered an opaque box like that shown here.
 
 The experiments were run on the Sky Bridge cluster at Sandia National Laboratories\lcite{SkyBridge}.
 Sky Bridge is a water cooled Cray capacity cluster with 1,848 nodes (although at most 512 nodes were used at any one time during these experiments).
@@ -435,30 +433,26 @@ The tests include runs on 128 processes (8 real nodes) up to 8192 cores (512 rea
 It is impractical to run an experiment on every possible number of processes.
 Instead, jobs are run on every $2^{i/6}$ processes, rounded to the nearest integer.
 This hits all jobs sizes that are a perfect power of 2 and 5 in between.
-The results of these experiments are shown in Figures \ref{fig:ScalingHDTV} and \ref{fig:Scaling8K}.
-(The plots are labeled as ``Partial Composite Time'' because these times include only splitting the images and blending pixels.
-The fully composited image is left in pieces scattered across the MPI processes.
-Section \ref{sec:Gather} discusses the collection of these pieces.)
 
-\begin{figure}
-  \centering
+\begin{wrapfigure}{r}{.7\linewidth}
   \includegraphics[width=\linewidth]{scaling-hdtv}
-  \caption{
-    Performance of variations of \binaryswap for HDTV ($1920 \times 1080$) images.
-    The performance of the IceT rendering library is also given for reference.
-  }
-  \label{fig:ScalingHDTV}
-\end{figure}
-
-\begin{figure}
-  \centering
+  %% \caption{
+  %%   Performance of variations of \binaryswap for HDTV ($1920 \times 1080$) images.
+  %%   The performance of the IceT rendering library is also given for reference.
+  %% }
+  %% \label{fig:ScalingHDTV}
   \includegraphics[width=\linewidth]{scaling-8k}
-  \caption{
-    Performance of variations of \binaryswap for 8K UHD ($7680 \times 4320$) images.
-    The performance of the IceT rendering library is also given for reference.
-  }
-  \label{fig:Scaling8K}
-\end{figure}
+  %% \caption{
+  %%   Performance of variations of \binaryswap for 8K UHD ($7680 \times 4320$) images.
+  %%   The performance of the IceT rendering library is also given for reference.
+  %% }
+  %% \label{fig:Scaling8K}
+\end{wrapfigure}
+The results of these experiments are shown at right.
+The top plot shows results for HDTV ($1920 \times 1080$) images whereas the bottom plot shows results for 8K UHD ($7680 \times 4320$) images.
+The plots are labeled as ``Partial Composite Time'' because these times include only splitting the images and blending pixels.
+The fully composited image is left in pieces scattered across the MPI processes.
+Section \ref{sec:Gather} discusses the collection of these pieces.
 
 A first observation about the data is to note that the \naive algorithm pays a significant but consistent penalty for running on a number of processes that is not a power of 2.
 This is consistent with the findings of Yu et al.\scite{23Swap}.
@@ -466,19 +460,19 @@ This is consistent with the findings of Yu et al.\scite{23Swap}.
 A second observation is that the \ttfcomposite algorithm follows a similar pattern as the \naive algorithm.
 Although Nonaka \etal\scite{Nonaka2015} suggest that the combination of reduction into the first step of binary swap will make \ttfcomposite faster than \naive, these measurements do not show an improvement.
 
-A third observation is that the \ttswap algorithm behaves well up to 1024 processes (which is as large as was measured by Ye et al.\scite{23Swap}), but the performance starts to deteriorate on larger sizes, particularly for the HDTV images.
+A third observation is that the \ttswap algorithm behaves well up to 1024 processes (which is as large as was measured by Yu et al.\scite{23Swap}), but the performance starts to deteriorate on larger sizes, particularly for the HDTV images.
 This appears to be caused by the time taken to build the compositing tree, which is complex for \ttswap and has to take into account all the processes.
-Figure \ref{fig:23SwapOverhead} demonstrates the fraction of time spent in building the 2-3 compositing tree.
 
-\begin{figure}[htb]
-  \centering
+\begin{wrapfigure}{r}{.6\linewidth}
   \includegraphics[width=\linewidth]{2-3-swap-overhead}
-  \caption{
-    Average times for \ttswap compositing.
-    The top lighter shade shows the time spent building the compositing tree whereas the bottom darker shade shows the remainder of the algorithm (transferring data, blending colors, etc.).
-  }
-  \label{fig:23SwapOverhead}
-\end{figure}
+  %% \caption{
+  %%   Average times for \ttswap compositing.
+  %%   The top lighter shade shows the time spent building the compositing tree whereas the bottom darker shade shows the remainder of the algorithm (transferring data, blending colors, etc.).
+  %% }
+  %% \label{fig:23SwapOverhead}
+\end{wrapfigure}
+The plot at right demonstrates the fraction of time spent in building the 2-3 compositing tree.
+The top lighter shade shows the time spent building the compositing tree whereas the bottom darker shade shows the remainder of the algorithm (transferring data, blending colors, etc.).
 
 A fourth observation is that both the \telescoping and \remainder versions of binary swap perform very well throughout the entirety of the experiments.
 This is somewhat counterintuitive for the \remainder algorithm, which, much like the poor performing \naive, and \ttfcomposite algorithms, lets processes go idle.
@@ -501,39 +495,26 @@ To verify that active pixel encoding is not artificially skewing the previous re
 This set of experiments only includes the \naive, \ttswap, and \remainder algorithms.
 \Ttfcomposite and \telescoping were not run to save time because their performance is similar to \naive and \remainder, respectively.
 IceT was not run because it always compresses the data.
-The results are shown in Figures \ref{fig:NoCompressHDTV} and \ref{fig:NoCompress8K}.
 
-\begin{figure}
-  \centering
+\begin{wrapfigure}{r}{.6\linewidth}
   \includegraphics[width=\linewidth]{no-compress-hdtv}
-  \caption{
-    Performance of compositing algorithms without compression for HDTV ($1920 \times 1080$) images.
-  }
-  \label{fig:NoCompressHDTV}
-\end{figure}
-
-\begin{figure}
-  \centering
+  %% \caption{
+  %%   Performance of compositing algorithms without compression for HDTV ($1920 \times 1080$) images.
+  %% }
+  %% \label{fig:NoCompressHDTV}
   \includegraphics[width=\linewidth]{no-compress-8k}
-  \caption{
-    Performance of compositing algorithms without compression for 8K UHD ($7680 \times 4320$) images.
-  }
-  \label{fig:NoCompress8K}
-\end{figure}
+  %% \caption{
+  %%   Performance of compositing algorithms without compression for 8K UHD ($7680 \times 4320$) images.
+  %% }
+  %% \label{fig:NoCompress8K}
+\end{wrapfigure}
+The results are shown at right.
+The top plot shows results for HDTV ($1920 \times 1080$) images whereas the bottom plot shows results for 8K UHD ($7680 \times 4320$) images.
+The plots are labeled as ``Partial Composite Time'' because these times include only splitting the images and blending pixels.
 
-\begin{figure*}
-  \centering
-  \includegraphics[width=\linewidth]{vn-vs-smp-hdtv}
-  \caption{
-    A comparison of the performance of compositing when run on the same number of cores in virtual node mode and pure distributed mode when using the \naive, \ttswap, and \remainder algorithms (in the left, center, and right plots, respectively).
-  }
-  \label{fig:VNvsSMPHDTV}
-\end{figure*}
-
-A first observation is that the behavior of the three algorithms is roughly consistent, proportionally speaking, with the behavior using active pixel encoding.
-The \naive algorithm pays a large penalty when not using a perfect power of 2 number of processes.
-The \ttswap algorithm is insensitive to the factors of the number of processes, but its performance worsens at larger scales.
-The \remainder algorithm's performance is consistent and is one of the best performers in all cases.
+A first observation is that the behavior of the three algorithms is roughly consistent, proportionally speaking, with the behavior using active pixel encoding with the exception of \ttswap.
+Both the \naive and \ttswap algorithms pay a large penalty when not using a perfect power of 2 number of processes (although \ttswap has about half the penalty).
+The \remainder algorithm's performance is consistent and is the best performer in all cases.
 
 A second observation is that without compression, the compositing takes about 2.5 to 4 times as long, which verifies the statements about the utility of active pixel encoding during compositing.
 
@@ -546,7 +527,14 @@ One consequence of the virtual node setup is that the network behavior is expect
 Data transfers between two virtual nodes on the same physical node are expected to be much faster than transfers between virtual nodes on two different physical nodes.
 To ensure that the conclusions we draw are not invalid for different network configurations, the experiments are also run in a \keyterm{pure distributed} mode where only a single MPI process is run on each node (and consequently only one core is used).
 
-Figure \ref{fig:VNvsSMPHDTV} shows the comparison between running on virtual node and pure distributed for generating HDTV images.
+\noindent
+\includegraphics[width=\linewidth]{vn-vs-smp-hdtv}
+  %% \caption{
+  %%   A comparison of the performance of compositing when run on the same number of cores in virtual node mode and pure distributed mode when using the \naive, \ttswap, and \remainder algorithms (in the left, center, and right plots, respectively).
+  %% }
+  %% \label{fig:VNvsSMPHDTV}
+
+The plots above compare the performance of compositing when run on the same number of nodes in virtual node mode and pure distributed mode when using the \naive, \ttswap, and \remainder algorithms (in the left, center, and right plots, respectively).
 A similar run for 8K UHD images was also run and gave similar results, but it is not displayed here for lack of space.
 
 An interesting observation is that the pure distributed mode runs are consistently faster than the virtual node mode.
@@ -569,19 +557,17 @@ The previously reported compositing times include the process up to the point wh
 However, in any practical system, the images must be gathered together for display.
 It is known that this gathering can take a significant portion of the compositing time\lcite{Rabenseifner2004,Moreland2011:SC,Larsen2016,Nonaka2018}.
 
-The software used for these experiments does this collection with a sequence of MPI\_Gather and MPI\_Gatherv commands.
-However, as shown in Figure \ref{fig:GatherTimes}, the cluster used for these experiments is giving wildly different performance for the gather operations that seems to have little to do with the compositing algorithms analized in this paper.
+\noindent
+\includegraphics[width=.5\linewidth]{gather-hdtv}%
+\includegraphics[width=.5\linewidth]{gather-8k}
+  %% \caption{
+  %%   The time spent while gathering image data after the partial composite.
+  %%   At left are times for HDTV ($1920 \times 1080$) images and at right are times for 8K UHD ($7680 \times 4320$) images.
+  %% }
+  %% \label{fig:GatherTimes}
 
-\begin{figure}
-  \centering
-  \includegraphics[width=.5\linewidth]{gather-hdtv}%
-  \includegraphics[width=.5\linewidth]{gather-8k}
-  \caption{
-    The time spent while gathering image data after the partial composite.
-    At left are times for HDTV ($1920 \times 1080$) images and at right are times for 8K UHD ($7680 \times 4320$) images.
-  }
-  \label{fig:GatherTimes}
-\end{figure}
+The plots above show the time spent while using MPI\_Gather and MPI\_Gatherv HDTD (left) and 8K UHD (right) images.
+The cluster used for these experiments is giving wildly different performance for the gather operations that seems to have little to do with the compositing algorithms analized in this paper, which is why these times are not incorporated into the other times given.
 
 These times suggest that a different mechanism for collection is needed.
 Nonaka \etal\scite{Nonaka2018} has success by adding padding and process reordering to replace MPI\_Gatherv with MPI\_Gather.
@@ -590,17 +576,15 @@ However, in this case it might be better to not rely on MPI-provided collectives
 \subsubsection{Errors in 2-3 Swap}
 \label{sec:2-3SwapErrors}
 
+\begin{wrapfigure}{r}{.5\linewidth}
+  \includegraphics[width=\linewidth]{bad-composite-2-3-swap}
+  %% \caption{Compositing errors detected during \ttswap.}
+  %% \label{fig:BadComposite23Swap}
+\end{wrapfigure}
 Several checks were run during the experiments to ensure the correctness of the compositing algorithms.
 For most of the runs there were no problems.
-However, during a few of the \ttswap runs bad pixels were detected at the top of the images like those in Figure \ref{fig:BadComposite23Swap}.
+However, during a few of the \ttswap runs bad pixels were detected at the top of the images like that shown at right.
 It appears to be an indexing problem caused by a race condition that cannot be easily replicated.
-
-\begin{figure}[htb]
-  \centering
-  \includegraphics[width=.5\linewidth]{bad-composite-2-3-swap}
-  \caption{Compositing errors detected during \ttswap.}
-  \label{fig:BadComposite23Swap}
-\end{figure}
 
 Although some of the images are incorrect, it seems unlikely that the errors are causing a significant impact in the recorded timings.
 Furthermore, since \ttswap is not one of the better performing algorithms, there seems little reason to suffer the aggravation to fix the problem.
@@ -610,7 +594,7 @@ Furthermore, since \ttswap is not one of the better performing algorithms, there
 During the experiments it was noticed that some of the runs gave anomalously long run times.
 These appear to be intermittent issues with the testing cluster.
 Several of these experiments were re-run and found that the extra run time was in fact anomalous.
-However, some of the less egregious are left in the results (such as with the spikes seen in Figure \ref{fig:NoCompressHDTV}).
+However, some of the less egregious are left in the results (such as with the spikes seen in the plots of Section \ref{sec:FullImages}).
 
 \section{Conclusions}
 
