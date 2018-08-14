@@ -471,6 +471,9 @@ This hits all jobs sizes that are a perfect power of 2 and 5 in between.
 \end{wrapfigure}
 The results of these experiments are shown at right.
 The top plot shows results for HDTV images whereas the bottom plot shows results for 8K UHD images.
+Each trial (20 per experiment) is drawn as a dot.
+Experiments with little deviation in the trials have their dots drawn on top of each other.
+A trend line is drawn for the average values.
 The plots are labeled as ``Partial Composite Time'' because these times include only splitting the images and blending pixels.
 The fully composited image is left in pieces scattered across the MPI processes.
 Section \ref{sec:Gather} discusses the collection of these pieces.
@@ -531,6 +534,7 @@ IceT was not run because it always compresses the data.
 \end{wrapfigure}
 The results are shown at right.
 The top plot shows results for HDTV images whereas the bottom plot shows results for 8K UHD images.
+As before, the measurements for all trials are shown as dots drawn on an average trend line.
 
 A first observation is that the behavior of the three algorithms is roughly consistent, proportionally speaking, with the behavior using active pixel encoding with the exception of \ttswap.
 Both the \naive and \ttswap algorithms pay a large penalty when not using a perfect power of 2 number of processes (although \ttswap has about half the penalty).
@@ -555,6 +559,7 @@ To ensure that the conclusions we draw are not invalid for different network con
   %% \label{fig:VNvsSMPHDTV}
 
 The plots above compare the performance of compositing when run on the same number of nodes in virtual node mode and pure distributed mode when using the \naive, \ttswap, and \remainder algorithms (in the left, center, and right plots, respectively).
+The average times for the trials of each experiment are given.
 A similar run for 8K UHD images was also run and gave similar results, but it is not displayed here for lack of space.
 
 An interesting observation is that the pure distributed mode runs are consistently faster than the virtual node mode.
@@ -587,6 +592,7 @@ It is known that this gathering can take a significant portion of the compositin
   %% \label{fig:GatherTimes}
 
 The plots above show the time spent while using MPI\_Gather and MPI\_Gatherv for HDTV images (left) and 8K UHD images (right).
+The measurements for all trials are shown as dots drawn on an average trend line.
 The cluster used for these experiments is giving wildly different performance for the gather operations that seems to have little to do with the compositing algorithms analized in this paper, which is why these times are not incorporated into the other times given.
 
 These times suggest that a different mechanism for collection is needed.
