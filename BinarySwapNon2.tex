@@ -593,7 +593,7 @@ It is known that this gathering can take a significant portion of the compositin
 
 The plots above show the time spent while using MPI\_Gather and MPI\_Gatherv for HDTV images (left) and 8K UHD images (right).
 The measurements for all trials are shown as dots drawn on an average trend line.
-The cluster used for these experiments is giving wildly different performance for the gather operations that seems to have little to do with the compositing algorithms analized in this paper, which is why these times are not incorporated into the other times given.
+The cluster used for these experiments is giving wildly different performance for the gather operations that seems to have little to do with the compositing algorithms analyzed in this paper, which is why these times are not incorporated into the other times given.
 
 These times suggest that a different mechanism for collection is needed.
 Nonaka \etal\scite{Nonaka2018} has success by adding padding and process reordering to replace MPI\_Gatherv with MPI\_Gather.
@@ -625,7 +625,7 @@ However, some of the less egregious anomalies are left in the results (such as w
 \section{Conclusions}
 
 This paper presents a comprehensive comparative study of many parallel image compositing algorithms based on \binaryswap.
-Never before have all these algorithms been directly compared, and the results buck some previously accepted notions.
+Never before have all these algorithms been directly compared, and the results challenge some previously accepted notions.
 
 The clear and surprise winner of the comparison is the \remainder version of binary swap.
 \Remainder is simple to implement (the implementation used in these experiments has less lines of code than even the \naive algorithm) and is consistently a top performer.
