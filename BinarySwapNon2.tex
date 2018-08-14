@@ -635,6 +635,28 @@ The implementation for \ttswap is almost 4 times as long as \remainder, and, in 
 Also surprisingly, the simple but effective \remainder technique does not seem to be used at all in previous literature of parallel rendering.
 Ultimately, the parallel rendering research community should stop attempting to find complex solutions to manage undesirable factors but rather use a simple technique to absorb the remaining images when using factors that do not divide processes evenly.
 
+One of the biggest contributions of this work is a collection of sort-last image compositing algorithms with a consistent implementation and software framework, which makes direct comparisons like those provided in this paper possible.
+To encourage and enable other researchers to make similar studies (as well as verify or dispute the results of this paper) all the software used in this study is being made publicly available.
+The software, as well as all the raw timing logs collected during the study, are posted at
+\vfill % Putting URL on bottom of page happens to work out well.
+\iftoggle{anonymous}{
+  \redact{URL hidden for anonymous review.}
+}{
+  \noindent
+  \begin{minipage}{\linewidth}
+    \centering
+    \small
+    \url{http://www.kennethmoreland.com/scalable-rendering/\#LDAV2018}
+  \end{minipage}
+  %% \begin{quote}
+  %%   {
+  %%     \small
+  %%     \noindent
+  %%     \url{http://www.kennethmoreland.com/scalable-rendering/\#LDAV2018}
+  %%   }
+  %% \end{quote}
+}
+
 %% if specified like this the section will be committed in review mode
 \acknowledgments{
   \iftoggle{anonymous}{
