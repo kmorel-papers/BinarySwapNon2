@@ -204,10 +204,10 @@
 %% In both cases the last two arguments (1998) or last three (2012) can be empty.
 
 % Will anyone for LDAV really care? Commenting this out unless someone complains.
-%% \CCScatlist{
-%%   \CCScatTwelve{Computing methodologies}{Computer graphics}{Rendering}{};
-%%   \CCScatTwelve{Computing methodologies}{Parallel computing methodologies}{Parallel algorithms}{Massively parallel algorithms}
-%% }
+\CCScatlist{
+  \CCScatTwelve{Computing methodologies}{Computer graphics}{Rendering}{};
+  \CCScatTwelve{Computing methodologies}{Parallel computing methodologies}{Parallel algorithms}{Massively parallel algorithms}
+}
 
 %\CCScatlist{
   %\CCScat{H.5.2}{User Interfaces}{User Interfaces}{Graphical user interfaces (GUI)}{};
@@ -455,7 +455,7 @@ It is impractical to run an experiment on every possible number of processes.
 Instead, jobs are run on every $2^{i/6}$ processes, rounded to the nearest integer.
 This hits all jobs sizes that are a perfect power of 2 and 5 in between.
 
-\begin{wrapfigure}{r}{.7\linewidth}
+\begin{wrapfigure}{r}{.6\linewidth}
   \includegraphics[width=\linewidth]{scaling-hdtv}
   %% \caption{
   %%   Performance of variations of \binaryswap for HDTV ($1920 \times 1080$) images.
@@ -485,8 +485,7 @@ A second observation is that the \ttfcomposite algorithm follows a similar patte
 Although Nonaka \etal\scite{Nonaka2015} suggest that the combination of reduction into the first step of binary swap will make \ttfcomposite faster than \naive, these measurements do not show an improvement.
 
 A third observation is that the \ttswap algorithm behaves well up to 1024 processes (which is as large as was measured by Yu et al.\scite{23Swap}), but the performance starts to deteriorate on larger sizes, particularly for the HDTV images.
-This appears to be caused by the time taken to build the compositing tree, which is complex for \ttswap and has to take into account all the processes.
-
+This appears to be caused by the
 \begin{wrapfigure}{r}{.6\linewidth}
   \includegraphics[width=\linewidth]{2-3-swap-overhead}
   %% \caption{
@@ -495,6 +494,8 @@ This appears to be caused by the time taken to build the compositing tree, which
   %% }
   %% \label{fig:23SwapOverhead}
 \end{wrapfigure}
+time taken to build the compositing tree, which is complex for \ttswap and has to take into account all the processes.
+
 The plot at right demonstrates the fraction of time spent in building the 2-3 compositing tree.
 The top lighter shade shows the time spent building the compositing tree whereas the bottom darker shade shows the remainder of the algorithm (transferring data, blending colors, etc.).
 
@@ -520,7 +521,7 @@ This set of experiments only includes the \naive, \ttswap, and \remainder algori
 \Ttfcomposite and \telescoping were not run to save time because their performance is similar to \naive and \remainder, respectively.
 IceT was not run because it always compresses the data.
 
-\begin{wrapfigure}{r}{.7\linewidth}
+\begin{wrapfigure}{r}{.6\linewidth}
   \includegraphics[width=\linewidth]{no-compress-hdtv}
   %% \caption{
   %%   Performance of compositing algorithms without compression for HDTV ($1920 \times 1080$) images.
